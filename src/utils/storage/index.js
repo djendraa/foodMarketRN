@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { showMessage } from 'react-native-flash-message';
+import {showMessage} from 'react-native-flash-message';
 
 export const storeData = async (storageKey, value) => {
   try {
@@ -10,11 +10,11 @@ export const storeData = async (storageKey, value) => {
   }
 };
 
-export const getData = async (storageKey) => {
+export const getData = async storageKey => {
   try {
     const jsonValue = await AsyncStorage.getItem(storageKey);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
-    // error reading value
+    showMessage('Failed get data from Local Storage');
   }
 };

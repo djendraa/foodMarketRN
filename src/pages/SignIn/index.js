@@ -17,9 +17,10 @@ const index = ({navigation}) => {
   const onSubmit = () => {
     console.log('form: ', form);
     axios
-      .post('http://192.168.0.3/api/login', form)
+      .post('http://192.168.0.4/api/login', form)
       .then(res => {
         console.log('success', res);
+        navigation.navigate('MainApp');
       })
       .catch(err => {
         console.log('error', err);
