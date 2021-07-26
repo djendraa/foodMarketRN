@@ -1,30 +1,20 @@
-import axios from 'axios';
-import React, {useState} from 'react';
+/* eslint-disable react-hooks/rules-of-hooks */
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {Button, Gap, Header, TextInput} from '../../components';
+import {signInAction} from '../../redux/action/auth';
 import {useForm} from '../../utils';
 
 const index = ({navigation}) => {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [form, setForm] = useForm({
     email: '',
     password: '',
   });
+  const dispatch = useDispatch();
 
   const onSubmit = () => {
-    console.log('form: ', form);
-    axios
-      .post('http://192.168.0.4/api/login', form)
-      .then(res => {
-        console.log('success', res);
-        navigation.navigate('MainApp');
-      })
-      .catch(err => {
-        console.log('error', err);
-      });
+    dispatch(signInAction(form, navigation));
   };
   return (
     <View style={styles.page}>
