@@ -13,8 +13,6 @@ export const signUpAction =
       .then(res => {
         const token = `${res.data.data.token_type} ${res.data.data.access_token}`;
         const profile = res.data.data.user;
-        // Data User
-        storeData('userProfile', profile);
         // Data Token
         storeData('token', {value: token});
         if (photoReducer.isUploadPhoto) {
@@ -27,12 +25,22 @@ export const signUpAction =
                 'Content-Type': 'multipart/form-data',
               },
             })
+            .then(resUpload => {
+              profile.profile_photo_url = `http://192.168.0.4/storage/${resUpload.data.data[0]}`;
+              // Data User
+              storeData('userProfile', profile);
+              navigation.reset({index: 0, routes: [{name: 'SuccessSignUp'}]});
+            })
             .catch(err => {
               showMessage('Upload photo tidak berhasil', err);
+              navigation.reset({index: 0, routes: [{name: 'SuccessSignUp'}]});
             });
+        } else {
+          // Data User
+          storeData('userProfile', profile);
+          navigation.reset({index: 0, routes: [{name: 'SuccessSignUp'}]});
         }
         dispatch(setLoading(false));
-        navigation.replace('SuccessSignUp');
       })
       .catch(err => {
         dispatch(setLoading(false));

@@ -32,7 +32,7 @@ const SignUpAddress = ({navigation}) => {
         <Header
           title="Address"
           subTitle="Make sure it’s valid"
-          onBack={() => {}}
+          onBack={() => navigation.goBack()}
         />
         <View style={styles.container}>
           <TextInput
