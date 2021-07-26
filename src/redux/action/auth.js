@@ -1,10 +1,7 @@
 import axios from 'axios';
+import {API_HOST} from '../../config';
 import {showMessage, storeData} from '../../utils';
 import {setLoading} from './global';
-
-const API_HOST = {
-  url: 'http://192.168.0.4/api',
-};
 
 export const signUpAction =
   (dataRegister, photoReducer, navigation) => dispatch => {

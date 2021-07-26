@@ -3,14 +3,14 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {Gap} from '../../atoms';
 import Rating from '../Rating';
 
-const FoodCard = ({image}) => {
+const FoodCard = ({image, name, rating}) => {
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image} />
       <View style={styles.content}>
-        <Text style={styles.text}>Cherry Healthy</Text>
+        <Text style={styles.text}>{name}</Text>
         <Gap height={10} />
-        <Rating />
+        <Rating number={rating} />
       </View>
     </View>
   );
