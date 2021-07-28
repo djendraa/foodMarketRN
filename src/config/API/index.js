@@ -3,5 +3,5 @@
 // };
 
 export const API_HOST = {
-  url: 'http://192.168.200.109/api',
+  url: 'http://10.10.10.21/api',
 };
