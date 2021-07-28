@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {
   Button,
@@ -15,16 +15,8 @@ import {WebView} from 'react-native-webview';
 
 const OrderSummary = ({navigation, route}) => {
   const {item, transaction, userProfile} = route.params;
-  const [token, setToken] = useState('');
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [paymentURL, setPaymentURL] = useState('https://google.com');
-
-  useEffect(() => {
-    getData('token').then(res => {
-      console.log('Token :', res);
-      setToken(res.value);
-    });
-  }, []);
 
   const onCheckout = () => {
     const data = {
@@ -34,21 +26,21 @@ const OrderSummary = ({navigation, route}) => {
       total: transaction.total,
       status: 'PENDING',
     };
-    console.log('data :', data);
-    axios
-      .post(`${API_HOST.url}/checkout`, data, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then(res => {
-        console.log('Checkout Succes', res.data);
-        setIsPaymentOpen(true);
-        setPaymentURL(res.data.data.payment_url);
-      })
-      .catch(err => {
-        console.log('Error :', err);
-      });
+    getData('token').then(resToken => {
+      axios
+        .post(`${API_HOST.url}/checkout`, data, {
+          headers: {
+            Authorization: resToken.value,
+          },
+        })
+        .then(res => {
+          setIsPaymentOpen(true);
+          setPaymentURL(res.data.data.payment_url);
+        })
+        .catch(err => {
+          console.log('Error :', err.response);
+        });
+    });
   };
 
   const onNavChange = state => {
@@ -57,7 +49,7 @@ const OrderSummary = ({navigation, route}) => {
       'https://ecanteen.rumahinternet.net/midtrans/success?order_id=27&status_code=201&transaction_status=pending';
     const titleWeb = 'Laravel';
     if (state.title === titleWeb) {
-      navigation.replace('SuccessOrder');
+      navigation.reset({index: 0, routes: [{name: 'SuccessOrder'}]});
     }
   };
 
