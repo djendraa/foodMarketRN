@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {ProfileDummy} from '../../assets';
 import {ProfileTabSection} from '../../components';
 import {getData} from '../../utils';
 
@@ -16,7 +15,10 @@ const Profile = () => {
       <View style={styles.profileDetail}>
         <View style={styles.photo}>
           <View style={styles.borderPhoto}>
-            <Image source={{uri: userProfile.profile_photo_url}} style={styles.photoContainer} />
+            <Image
+              source={{uri: userProfile.profile_photo_url}}
+              style={styles.photoContainer}
+            />
           </View>
         </View>
         <Text style={styles.name}>{userProfile.name}</Text>
