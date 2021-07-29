@@ -46,7 +46,7 @@ const OrderSummary = ({navigation, route}) => {
   const onNavChange = state => {
     console.log('nav :', state);
     const urlSuccess =
-      'https://ecanteen.rumahinternet.net/midtrans/success?order_id=27&status_code=201&transaction_status=pending';
+      'https://foodbackend.wadahbelajar.com/midtrans/success?order_id=27&status_code=201&transaction_status=pending';
     const titleWeb = 'Laravel';
     if (state.title === titleWeb) {
       navigation.reset({index: 0, routes: [{name: 'SuccessOrder'}]});

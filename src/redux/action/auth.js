@@ -23,7 +23,7 @@ export const signUpAction =
               },
             })
             .then(resUpload => {
-              profile.profile_photo_url = `http://192.168.0.4/storage/${resUpload.data.data[0]}`;
+              profile.profile_photo_url = `https://foodbackend.wadahbelajar.com/storage/${resUpload.data.data[0]}`;
               // Data User
               storeData('userProfile', profile);
               navigation.reset({index: 0, routes: [{name: 'SuccessSignUp'}]});
